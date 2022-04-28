@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.board.mappers.board">
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="com.board.domain.BoardVO">
+		 select bd_no
+			,  bd_title
+			,  bd_content
+			,  bd_writer
+			,  bd_regDate
+			,  bd_viewCnt
+		from 
+		t_board
+	</select>
+	
+	<!-- 게시물 작성 -->
+	<insert id="write" parameterType="com.board.domain.BoardVO">
+		insert into
+		t_board(bd_title, bd_content, bd_writer)
+		values(#{bd_title}, #{bd_content}, #{bd_writer})
+	</insert>
+	
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO">
+		select bd_no, bd_title, bd_content, bd_writer, bd_regDate, bd_viewCnt
+		from t_board
+		where bd_no = #{bd_no}
+	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="modify" parameterType="com.board.domain.BoardVO">
+		update t_board 
+		set bd_title = #{bd_title}, bd_content = #{bd_content}
+		where bd_no = #{bd_no}
+	</update>
+	
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from t_board 
+		where bd_no = #{bd_no}
+	</delete>
+</mapper>
